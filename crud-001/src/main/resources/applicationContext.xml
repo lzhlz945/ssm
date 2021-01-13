@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring" xmlns:tx="http://www.alibaba.com/schema/stat"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd http://www.alibaba.com/schema/stat http://www.alibaba.com/schema/stat.xsd">
 
+    <!--数据库连接信息-->
+    <context:property-placeholder location="classpath:properties/jdbc.properties"/>
+    <!-- Spring希望管理所有的业务逻辑组件，等。。。 -->
+    <context:component-scan base-package="com.zhang.ssm.service">
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+    <!--阿里连接池-->
+    <bean  name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"  init-method="init" destroy-method="close" >
+        <property name="url" value="${url}"></property>
+        <property name="username" value="${user}"></property>
+        <property name="password" value="${password}"></property>
+    </bean>
+
+    <!--SQLSessionFactory-->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean" name="factory">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:myBits/mybatis.xml" />
+    </bean>
+    <!--配置一个可以进行批量执行的sqlSession  -->
+    <bean name="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" >
+        <constructor-arg name="sqlSessionFactory" ref="factory"/>
+        <constructor-arg name="executorType" value="BATCH"/>
+    </bean>
+    <!-- 扫描所有的mapper接口的实现，让这些mapper能够自动注入；
+     base-package：指定mapper接口的包名
+      -->
+    <mybatis-spring:scan base-package="com.zhang.tx.dao"/>
+    <!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.zhang.tx.dao"></property>
+    </bean> -->
+
+    <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <tx:annotation-driven/>
 </beans>
