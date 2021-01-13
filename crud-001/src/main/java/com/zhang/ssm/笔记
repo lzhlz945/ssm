@@ -1,0 +1,5 @@
+一、<!--reset风格的url，将普通的post请求转为指定的put和delete请求-->
+  <filter>
+    <filter-name>hiddenHttpMethodFilter</filter-name>
+    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+  </filter>
