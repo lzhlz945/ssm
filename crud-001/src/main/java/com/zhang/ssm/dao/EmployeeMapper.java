@@ -1,15 +1,32 @@
 package com.zhang.ssm.dao;
 
 import com.zhang.ssm.bean.Employee;
+import com.zhang.ssm.bean.EmployeeExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface EmployeeMapper {
+    long countByExample(EmployeeExample example);
+
+    int deleteByExample(EmployeeExample example);
+
     int deleteByPrimaryKey(Integer empId);
 
     int insert(Employee record);
 
     int insertSelective(Employee record);
 
+    List<Employee> selectByExample(EmployeeExample example);
+    //带部门信息的查询
+    List<Employee> selectByExampleWithDept(EmployeeExample example);
+
     Employee selectByPrimaryKey(Integer empId);
+    //带部门信息的查询主键
+    Employee selectByPrimaryKeyWithDept(Integer empId);
+
+    int updateByExampleSelective(@Param("record") Employee record, @Param("example") EmployeeExample example);
+
+    int updateByExample(@Param("record") Employee record, @Param("example") EmployeeExample example);
 
     int updateByPrimaryKeySelective(Employee record);
 

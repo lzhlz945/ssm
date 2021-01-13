@@ -192,7 +192,7 @@
         </dependencies>
         <configuration>
           <!--配置文件的位置-->
-          <configurationFile>generatorConfig.xml</configurationFile>
+          <configurationFile>mbg.xml</configurationFile>
           <verbose>true</verbose>
           <overwrite>true</overwrite>
         </configuration>
