@@ -3,3 +3,8 @@
     <filter-name>hiddenHttpMethodFilter</filter-name>
     <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
   </filter>
+
+二、spring的测试
+
+  @RunWith(SpringJUnit4ClassRunner.class)
+  @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
