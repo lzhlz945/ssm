@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/crud-001/crud-001.iml" filepath="$PROJECT_DIR$/crud-001/crud-001.iml" />
       <module fileurl="file://$PROJECT_DIR$/tset-001/tset-001.iml" filepath="$PROJECT_DIR$/tset-001/tset-001.iml" />
     </modules>
   </component>
