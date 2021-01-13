@@ -13,8 +13,12 @@
         <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
     <typeAliases>
-        <package name="com.zhang.tx.bean"/>
+        <package name="com.zhang.ssm.bean"/>
     </typeAliases>
+    
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
 
     <databaseIdProvider type="DB_VENDOR">
         <property name="MySQL" value="mysql"/>

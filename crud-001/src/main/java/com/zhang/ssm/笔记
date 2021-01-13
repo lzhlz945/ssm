@@ -20,3 +20,24 @@
            *         <constructor-arg name="sqlSessionFactory" ref="factory"/>
            *         <constructor-arg name="executorType" value="BATCH"/>
            *     </bean>
+
+
+
+四、mvc MockMvc模拟测试
+
+    1、导入注解@WebAppConfiguration
+
+    2、定义MockMVC和注入mvc容器
+          @Autowired
+          private WebApplicationContext context;
+          MockMvc mockMvc;
+
+    3、在测试前获取MockMvc
+       @Before
+           public void initMockMvc(){
+               mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+           }
+
+    4、测试+从request域对象中取出数据
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/emps").param("pn","1")).andReturn();
+               MockHttpServletRequest request = result.getRequest();

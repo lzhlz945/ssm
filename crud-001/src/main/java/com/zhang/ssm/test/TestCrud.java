@@ -75,4 +75,12 @@ public class TestCrud {
         System.out.println("批量插入完成");
 
     }
+
+
+    /**
+     *
+     * 模拟mvc请求测试
+     */
+
+
 }
