@@ -4,7 +4,6 @@ import com.zhang.ssm.bean.Department;
 import com.zhang.ssm.bean.Employee;
 import com.zhang.ssm.dao.DepartmentMapper;
 import com.zhang.ssm.dao.EmployeeMapper;
-import com.zhang.ssm.service.EmployeeService;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.junit.runner.RunWith;

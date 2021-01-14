@@ -4,13 +4,17 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zhang.ssm.bean.Employee;
 import com.zhang.ssm.service.EmployeeService;
+import com.zhang.ssm.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: create by zhl
@@ -26,16 +30,20 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @ResponseBody
     @RequestMapping("/emps")
-    public String getEmps(@RequestParam(value = "pn",defaultValue = "1")Integer pn, Model model){
+    public Msg getEmps(@RequestParam(value = "pn",required =true,defaultValue = "1")Integer pn, Model model){
 
         PageHelper.startPage(pn,5);
 
         List<Employee> employeeList=employeeService.getAll();
 
-        PageInfo<Employee> pageInfo=new PageInfo<>(employeeList);
+        PageInfo<Employee> pageInfo=new PageInfo<>(employeeList,5);
 
-        model.addAttribute("pageInfo",pageInfo);
-        return "list";
+
+
+        return Msg.success().add("pageInfo",pageInfo);
     }
+
+
 }

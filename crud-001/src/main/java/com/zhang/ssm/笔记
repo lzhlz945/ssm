@@ -68,3 +68,9 @@
     <base href="<%=basePath%>">
 
      <%@ include file="/pages/common/head.jsp"%>
+
+
+六、添加通用返回
+     1、私有code,message,map
+     2、get\set方法
+     3、写static success fail 写返回的map
