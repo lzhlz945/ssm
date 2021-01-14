@@ -31,7 +31,30 @@
                 type:"get",
                 dataType:"json",
                 success:function (date) {
-                   alert("成功")
+                    var emps=date.map.pageInfo.list;
+                    var html="";
+                  $.each(emps,function (i,n) {
+                        var gender=n.gender=="1"?"男":"女";
+                      html+='<tr>';
+                      html+='<td>'+n.empId+'</td>';
+                      html+='<td>'+n.empName+'</td>';
+                      html+='<td>'+gender+'</td>';
+                      html+='<td>'+n.email+'</td>';
+                      html+='<td>'+n.dId+'</td>';
+                      html+='<td>';
+                      html+='<button class="btn btn-info btn-sm" type="submit" >';
+                      html+='<span class="glyphicon glyphicon-pencil " aria-hidden="true" aria-label="Left Align"></span>';
+                      html+='修改';
+                      html+='</button>';
+                      html+='<button class="btn btn-danger btn-sm" type="submit">';
+                      html+='<span class="glyphicon glyphicon-remove" aria-hidden="true" aria-label="Left Align"></span>';
+                      html+='删除';
+                      html+='</button>';
+                      html+='</td>';
+                      html+='</tr>';
+
+                  })
+                    $("#tBodyBtn").html(html);
                 }
             })
 
@@ -60,6 +83,7 @@
 <div class="row">
     <div class="col-md-12">
         <table class="col-md-12 table-hover">
+            <thead>
             <tr>
                 <th>#</th>
                 <th>name</th>
@@ -68,6 +92,8 @@
                 <th>deptId</th>
                 <th>操作</th>
             </tr>
+            </thead>
+            <tbody id="tBodyBtn">
             <c:forEach items="${requestScope.pageInfo.getList()}" var="page" varStatus="s">
                 <tr>
                     <td>${page.empId}</td>
@@ -89,6 +115,7 @@
                     </td>
                 </tr>
             </c:forEach>
+            </tbody>
         </table>
     </div>
 </div>
