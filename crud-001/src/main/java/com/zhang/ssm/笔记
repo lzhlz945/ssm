@@ -78,3 +78,27 @@
 
 七、				//var html1 = "'\"\"'";
   				//var html2 = '"\'\'"';
+
+
+八、全选反选
+              $("#tBodyBtn").on("click",$("input[name=xz]"),function () {
+                             $("#qx").prop("checked",$("input[name=xz]").length==$("input[name=xz]:checked").length)
+                         })
+
+                         $("#qx").click(function () {
+                             $("input[name=xz]").prop("checked",this.checked);
+                         })
+
+
+
+            以上事件没有触发，是因为绑定事件的元素，是通过js代码手动拼接生成的，这种元素，也叫做动态生成的元素
+   			动态生成的元素，不能以传统的方式来绑定事件$("input[name=xz]").click(function ()
+   			将来我们会大量的遇到这种需求，也就是为动态生成的元素绑定事件，我们要通过on的方式来对这些元素进行绑定
+
+   			语法：
+   				$(需要绑定的元素的有效的父级元素).on(绑定事件的方式，需要绑定的元素，回调函数)
+
+
+   			我们现在需要绑定的元素是所有name=xz的input，我们找到后，看到了他（们）的父级元素td
+   			td虽然是父级，但是td是无效的父级元素（如果父级元素仍然是动态拼接生成的，即定义为无效）
+   			如果无效，继续向该父级的元素继续向上寻找，最终我们找到了tBody元素

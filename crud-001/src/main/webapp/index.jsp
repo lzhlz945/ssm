@@ -24,6 +24,16 @@
 
             pages();
 
+            $("#tBodyBtn").on("click",$("input[name=xz]"),function () {
+                $("#qx").prop("checked",$("input[name=xz]").length==$("input[name=xz]:checked").length)
+            })
+
+            $("#qx").click(function () {
+                $("input[name=xz]").prop("checked",this.checked);
+            })
+
+
+
         })
         function pages() {
             $.ajax({
@@ -33,9 +43,11 @@
                 success:function (date) {
                     var emps=date.map.pageInfo.list;
                     var html="";
-                  $.each(emps,function (i,n) {
+
+                    $.each(emps,function (i,n) {
                         var gender=n.gender=="1"?"男":"女";
                       html+='<tr>';
+                      html+='<td><input type="checkbox" name="xz" id="'+n.empId+'" /></td>';
                       html+='<td>'+n.empId+'</td>';
                       html+='<td>'+n.empName+'</td>';
                       html+='<td>'+gender+'</td>';
@@ -55,8 +67,11 @@
 
                   })
                     $("#tBodyBtn").html(html);
+
+
                 }
             })
+
 
         }
     </script>
@@ -85,6 +100,7 @@
         <table class="col-md-12 table-hover">
             <thead>
             <tr>
+                <td><input type="checkbox" id="qx" /></td>
                 <th>#</th>
                 <th>name</th>
                 <th>gender</th>
@@ -94,66 +110,21 @@
             </tr>
             </thead>
             <tbody id="tBodyBtn">
-            <c:forEach items="${requestScope.pageInfo.getList()}" var="page" varStatus="s">
-                <tr>
-                    <td>${page.empId}</td>
-                    <td>${page.empName}</td>
-                    <td>${page.gender eq "1"?'男':'女'}</td>
-                    <td>${page.email}</td>
-                    <td>${page.dId}</td>
-                    <td>
-                        <button class="btn btn-info btn-sm" type="submit" >
 
-                            <span class="glyphicon glyphicon-pencil " aria-hidden="true" aria-label="Left Align"></span>
-                            修改
-                        </button>
-                        <button class="btn btn-danger btn-sm" type="submit">
-
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" aria-label="Left Align"></span>
-                            删除
-                        </button>
-                    </td>
-                </tr>
-            </c:forEach>
             </tbody>
         </table>
     </div>
 </div>
 
-<div class="row">
+<div class="row" id="row1">
     <span class="col-md-6">当前第${requestScope.pageInfo.getPageNum()}页  共${requestScope.pageInfo.getPages()}页  共${requestScope.pageInfo.getTotal()}条记录</span>
 </div>
 <div class="row">
 
     <div class="col-md-4 col-md-offset-8">
         <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li><a href="${PATH}/emps?pn=1">首页</a></li>
-                <c:if test="${pageInfo.hasPreviousPage}">
-                    <li>
-                        <a href="${PATH}/emps?pn=${pageInfo.pageNum-1}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                </c:if>
+            <ul class="pagination" id="ulId">
 
-                <c:forEach items="${pageInfo.navigatepageNums}" var="page_num">
-                    <c:if test="${page_num eq pageInfo.pageNum}">
-                        <li class="active"><a href="${PATH}/emps?pn=${page_num}">${page_num}</a></li>
-                    </c:if>
-                    <c:if test="${page_num ne pageInfo.pageNum}">
-                        <li><a href="${PATH}/emps?pn=${page_num}">${page_num}</a></li>
-                    </c:if>
-                </c:forEach>
-                <c:if test="${pageInfo.hasNextPage}">
-                    <li>
-                        <a href="${PATH}/emps?pn=${pageInfo.pageNum+1}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </c:if>
-
-                <li><a href="${PATH}/emps?pn=${pageInfo.pages}">末页</a></li>
             </ul>
         </nav>
     </div>
