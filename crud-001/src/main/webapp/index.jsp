@@ -32,6 +32,19 @@
                 $("input[name=xz]").prop("checked",this.checked);
             })
 
+            $("#sx").click(function () {
+               var id= $("input[name=xz]:checked");
+               alert(id)
+               var params="";
+                for (var i = 0; i < id.length; i++) {
+                    params+="ids="+$(id[i]).val();
+                    if(i < id.length-1){
+                        params+="&";
+                    }
+                }
+                alert(params)
+            })
+
 
 
         })
@@ -47,7 +60,7 @@
                     $.each(emps,function (i,n) {
                         var gender=n.gender=="1"?"男":"女";
                       html+='<tr>';
-                      html+='<td><input type="checkbox" name="xz" id="'+n.empId+'" /></td>';
+                      html+='<td><input type="checkbox" name="xz" value="'+n.empId+'" id="'+n.empId+'" /></td>';
                       html+='<td>'+n.empId+'</td>';
                       html+='<td>'+n.empName+'</td>';
                       html+='<td>'+gender+'</td>';
@@ -127,6 +140,13 @@
 
             </ul>
         </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-8">
+
+    <button id="sx">删除</button>
     </div>
 </div>
 
